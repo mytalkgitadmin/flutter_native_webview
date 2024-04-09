@@ -147,6 +147,16 @@ class WebViewController {
     );
   }
 
+  Future<void> postUrl(String url, {Map<String, String>? headers}) async {
+    return _channel.invokeMethod<void>(
+      'postUrl',
+      <String, dynamic>{
+        'url': url,
+        'headers': headers,
+      },
+    );
+  }
+
   Future<bool?> canGoBack() async {
     return _channel.invokeMethod<bool>(
       'canGoBack',
