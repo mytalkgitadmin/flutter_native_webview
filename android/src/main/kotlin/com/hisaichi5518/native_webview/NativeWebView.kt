@@ -4,12 +4,17 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.*
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.webkit.WebResourceResponse
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.core.content.ContextCompat.startActivity
 import io.flutter.plugin.common.MethodChannel
+import java.net.URL
+import javax.net.ssl.HttpsURLConnection
 
 class NativeWebView(context: Context, channel: MethodChannel, options: WebViewOptions) : InputAwareWebView(context, null as View?) {
     init {
@@ -54,5 +59,49 @@ class NativeWebView(context: Context, channel: MethodChannel, options: WebViewOp
         }
 
         loadUrl(initialURL, initialHeaders)
+    }
+
+    @SuppressLint("WebViewApiAvailability")
+    @Suppress("DEPRECATION")
+    fun postUrl(postUrl: String, additionalHttpHeaders: Map<String, String>?) {
+
+        val savedWebViewClient = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            webViewClient
+        } else {
+            TODO("VERSION.SDK_INT < O")
+        }
+
+        webViewClient = object : WebViewClient() {
+            @Deprecated("Deprecated in Java")
+            override fun shouldInterceptRequest(view: WebView, url: String): WebResourceResponse? {
+
+                if (url != postUrl) {
+                    view.post {
+                        webViewClient = savedWebViewClient
+                    }
+                    return savedWebViewClient?.shouldInterceptRequest(view, url)
+                }
+
+                val httpsUrl = URL(url)
+                val conn: HttpsURLConnection = httpsUrl.openConnection() as HttpsURLConnection
+                conn.requestMethod = "POST"
+                additionalHttpHeaders?.forEach { header ->
+                    conn.addRequestProperty(header.key, header.value)
+                }
+
+                conn.outputStream.close()
+
+                val responseCode = conn.responseCode
+                Log.d("WebView extension", "responseCode = ${responseCode} ${conn.contentType}")
+                view.post {
+                    webViewClient = savedWebViewClient
+                }
+
+                // typical conn.contentType is "text/html; charset=UTF-8"
+                return WebResourceResponse(conn.contentType.substringBefore(";"), "utf-8", conn.inputStream)
+            }
+        }
+
+        loadUrl(postUrl, additionalHttpHeaders)
     }
 }
