@@ -219,7 +219,9 @@ class NativeWebViewContentController: NSObject, WKScriptMessageHandler {
         else {
             return
         }
+        
         let arguments = ["handlerName": handlerName, "args": args]
+        print(arguments);
         channel.invokeMethod("onJavascriptHandler", arguments: arguments)
     }
 }
