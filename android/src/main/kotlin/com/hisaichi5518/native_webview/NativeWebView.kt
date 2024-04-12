@@ -28,8 +28,9 @@ class NativeWebView(context: Context, channel: MethodChannel, options: WebViewOp
         settings.useWideViewPort = true
         settings.loadWithOverviewMode = true
         settings.loadsImagesAutomatically = true
-        settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+        settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         addJavascriptInterface(JavascriptHandler(channel), NativeWebChromeClient.JAVASCRIPT_BRIDGE_NAME)
+
 
         setDownloadListener { url, _, _, mimetype, _ ->
             val intent = Intent(Intent.ACTION_VIEW)
