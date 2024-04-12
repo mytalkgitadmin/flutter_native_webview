@@ -11,6 +11,7 @@ import android.view.*
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.webkit.WebSettings
 import androidx.core.content.ContextCompat.startActivity
 import io.flutter.plugin.common.MethodChannel
 import java.net.URL
