@@ -4,6 +4,7 @@ import android.content.Context
 import android.hardware.display.DisplayManager
 import android.view.View
 import android.webkit.WebView
+import android.webkit.WebSettings
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
@@ -48,6 +49,9 @@ class FlutterWebViewController(
         if (customUserAgent != null) {
             webview.settings.userAgentString = customUserAgent
         }
+
+        webview.clearCache(false);
+        webview.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
 
         webview.load(initialData, initialFile, initialUrl, initialHeaders)
     }
