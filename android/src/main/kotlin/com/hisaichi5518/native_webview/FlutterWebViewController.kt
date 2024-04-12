@@ -49,10 +49,6 @@ class FlutterWebViewController(
             webview.settings.userAgentString = customUserAgent
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            webview.settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-        }
-
         webview.load(initialData, initialFile, initialUrl, initialHeaders)
     }
 
