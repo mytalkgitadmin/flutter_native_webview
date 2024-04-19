@@ -28,7 +28,11 @@ class NativeWebView(context: Context, channel: MethodChannel, options: WebViewOp
         settings.useWideViewPort = true
         settings.loadWithOverviewMode = true
         settings.loadsImagesAutomatically = true
-        settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        settings.allowContentAccess = true
+        settings.allowFileAccess = true
+        settings.allowFileAccessFromFileURLs = true
+        settings.allowUniversalAccessFromFileURLs = true
+        settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW;
         addJavascriptInterface(JavascriptHandler(channel), NativeWebChromeClient.JAVASCRIPT_BRIDGE_NAME)
 
 
