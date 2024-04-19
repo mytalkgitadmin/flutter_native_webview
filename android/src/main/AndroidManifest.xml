@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.hisaichi5518.native_webview">
-    <application>
+    <application
+        android:usesCleartextTraffic="true">
     </application>
 </manifest>
