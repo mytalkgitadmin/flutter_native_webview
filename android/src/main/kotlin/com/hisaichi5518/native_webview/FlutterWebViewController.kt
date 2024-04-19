@@ -50,9 +50,11 @@ class FlutterWebViewController(
             webview.settings.userAgentString = customUserAgent
         }
 
-        webview.clearCache(false);
-        webview.settings.allowContentAccess = true;
-        webview.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW;
+        webview.clearCache(false)
+        webview.settings.javaScriptEnabled = true
+        webview.settings.domStorageEnabled = true
+        webview.settings.allowContentAccess = true
+        webview.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
 
         webview.load(initialData, initialFile, initialUrl, initialHeaders)
     }
