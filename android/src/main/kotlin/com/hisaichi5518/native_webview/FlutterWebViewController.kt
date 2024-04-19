@@ -54,6 +54,8 @@ class FlutterWebViewController(
         webview.settings.javaScriptEnabled = true
         webview.settings.domStorageEnabled = true
         webview.settings.allowContentAccess = true
+        webview.settings.allowFileAccess = true
+        webview.settings.allowFileAccessFromFileURLs = true
         webview.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
 
         webview.load(initialData, initialFile, initialUrl, initialHeaders)
