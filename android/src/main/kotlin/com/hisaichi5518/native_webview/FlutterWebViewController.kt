@@ -51,8 +51,7 @@ class FlutterWebViewController(
         }
 
         webview.clearCache(false);
-        webview.settings.allowContentAccess = true;
-        webview.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW;
+        webview.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
 
         webview.load(initialData, initialFile, initialUrl, initialHeaders)
     }
