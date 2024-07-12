@@ -50,8 +50,9 @@ class FlutterWebViewController(
             webview.settings.userAgentString = customUserAgent
         }
 
-        webview.clearCache(false);
-        webview.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        webview.clearCache(false)
+        webview.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+        webview.settings.textZoom = 100
 
         webview.load(initialData, initialFile, initialUrl, initialHeaders)
     }
