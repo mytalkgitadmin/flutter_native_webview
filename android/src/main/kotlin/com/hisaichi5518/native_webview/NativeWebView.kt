@@ -58,11 +58,11 @@ class NativeWebView(context: Context, channel: MethodChannel, options: WebViewOp
 
         initialFile?.let { path ->
             val filename = Locator.binding!!.flutterAssets.getAssetFilePathByName(path)
-            loadUrl("file:///android_asset/${filename}", initialHeaders)
+            loadUrl("file:///android_asset/$filename", initialHeaders?.toMutableMap() ?: mutableMapOf())
             return
         }
 
-        loadUrl(initialURL, initialHeaders)
+        loadUrl(initialURL, initialHeaders?.toMutableMap() ?: mutableMapOf())
     }
 
     @SuppressLint("WebViewApiAvailability")
@@ -106,6 +106,7 @@ class NativeWebView(context: Context, channel: MethodChannel, options: WebViewOp
             }
         }
 
-        loadUrl(postUrl, additionalHttpHeaders)
+        loadUrl(postUrl,
+            additionalHttpHeaders?.toMutableMap() ?: mutableMapOf())
     }
 }

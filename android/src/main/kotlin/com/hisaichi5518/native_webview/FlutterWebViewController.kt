@@ -96,7 +96,13 @@ class FlutterWebViewController(
                     return
                 }
 
-                webview.loadUrl(url, arguments["headers"] as? Map<String, String>)
+                val headers = (arguments["headers"] as? Map<*, *>)?.mapNotNull {
+                    val key = it.key as? String
+                    val value = it.value as? String
+                    if (key != null && value != null) key to value else null
+                }?.toMap()?.toMutableMap() ?: mutableMapOf()
+
+                webview.loadUrl(url, headers)
                 result.success(true)
             }
             "postUrl" -> {
