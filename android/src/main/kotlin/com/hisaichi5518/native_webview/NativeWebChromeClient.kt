@@ -18,6 +18,7 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry
+import androidx.appcompat.R
 
 
 class NativeWebChromeClient(private val channel: MethodChannel) : WebChromeClient(), PluginRegistry.ActivityResultListener {
@@ -258,7 +259,7 @@ if (!window.${JAVASCRIPT_BRIDGE_NAME}.callHandler) {
         result: JsResult,
         okLabel: String?
     ) {
-        val builder = AlertDialog.Builder(Locator.activity!!, android.R.style.Theme_AppCompat_Dialog_Alert).apply {
+        val builder = AlertDialog.Builder(Locator.activity!!, R.style.Theme_AppCompat_Dialog_Alert).apply {
             setMessage(message)
         }
         val confirmClickListener = DialogInterface.OnClickListener { dialog, _ ->
@@ -284,7 +285,7 @@ if (!window.${JAVASCRIPT_BRIDGE_NAME}.callHandler) {
         okLabel: String?,
         cancelLabel: String?
     ) {
-        val builder = AlertDialog.Builder(Locator.activity!!, android.R.style.Theme_AppCompat_Dialog_Alert).apply {
+        val builder = AlertDialog.Builder(Locator.activity!!, R.style.Theme_AppCompat_Dialog_Alert).apply {
             setMessage(message)
         }
 
@@ -334,7 +335,7 @@ if (!window.${JAVASCRIPT_BRIDGE_NAME}.callHandler) {
         layout.setPaddingRelative(45, 15, 45, 0)
         layout.addView(editText)
 
-        val builder = AlertDialog.Builder(Locator.activity!!, android.R.style.Theme_AppCompat_Dialog_Alert).apply {
+        val builder = AlertDialog.Builder(Locator.activity!!, R.style.Theme_AppCompat_Dialog_Alert).apply {
             setMessage(message)
         }
 
