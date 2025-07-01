@@ -52,7 +52,9 @@ class NativeWebView(context: Context, channel: MethodChannel, options: WebViewOp
             val encoding = it["encoding"]
             val baseUrl = it["baseUrl"]
             val historyUrl = it["historyUrl"]
-            loadDataWithBaseURL(baseUrl, data, mimeType, encoding, historyUrl)
+            if (data != null) {
+                loadDataWithBaseURL(baseUrl, data, mimeType, encoding, historyUrl)
+            }
             return
         }
 
